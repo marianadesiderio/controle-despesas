@@ -1,5 +1,5 @@
 /* Controle de Despesas — service worker: funciona offline com a última versão baixada */
-var CACHE = 'despesas-0ea528dd';
+var CACHE = 'despesas-847fb4b1';
 var ARQS = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png',
   'xlsx.full.min.js', 'pdf.min.js', 'pdf.worker.min.js'];
 self.addEventListener('install', function (e) {
