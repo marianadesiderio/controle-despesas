@@ -1,5 +1,5 @@
 /* Controle de Despesas: service worker. Com internet busca a versão nova; sem internet usa a última guardada. */
-var CACHE = 'despesas-20e2fc52';
+var CACHE = 'despesas-3703740b';
 var ARQS = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png',
   'xlsx.full.min.js', 'pdf.min.js', 'pdf.worker.min.js'];
 self.addEventListener('install', function (e) {
@@ -24,6 +24,7 @@ self.addEventListener('fetch', function (e) {
       var feito = false;
       var t = setTimeout(function () { caches.match('index.html').then(function (r) { if (r && !feito) { feito = true; ok(r); } }); }, 4000);
       fetch(u.href, { cache: 'no-cache', credentials: 'same-origin' }).then(function (resp) {
+        if (!resp.ok) throw new Error('HTTP ' + resp.status); /* site fora do ar ou republicando: usa a cópia guardada */
         clearTimeout(t); guarda(req.mode === 'navigate' ? 'index.html' : req, resp.clone());
         if (!feito) { feito = true; ok(resp); }
       }).catch(function () {
